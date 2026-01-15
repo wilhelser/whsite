@@ -9,6 +9,9 @@ youtube_channel_id: UC7oLAr-eZ9JKsqW77gVGERA
 youtube_api_key: AIzaSyAPLj__gYZU6xFdhBOxuEywVvS1JTP2qbw
 tiktok_username: wilhelser
 
+# Google Analytics
+google_analytics: G-1SEMY88D8Z  # Replace with your GA4 Measurement ID
+
 # Build settings
 markdown: kramdown
 permalink: pretty
