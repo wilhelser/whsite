@@ -1,0 +1,41 @@
+#!/bin/zsh
+
+# Script to help update TikTok videos
+# Since TikTok uses JavaScript to load videos, we need to use a browser
+
+echo "🎬 TikTok Video Updater"
+echo "======================"
+echo ""
+echo "TikTok loads videos with JavaScript, so we need to extract them from your browser."
+echo ""
+echo "📋 INSTRUCTIONS:"
+echo ""
+echo "1. Open your browser and go to:"
+echo "   https://www.tiktok.com/@wilhelser"
+echo ""
+echo "2. Scroll down to load all the videos you want to include"
+echo ""
+echo "3. Open the browser console:"
+echo "   - Chrome/Edge: Press F12 or Cmd+Option+I (Mac) or Ctrl+Shift+I (Windows)"
+echo "   - Firefox: Press F12 or Cmd+Option+K (Mac) or Ctrl+Shift+K (Windows)"
+echo "   - Safari: Enable Developer menu first, then Cmd+Option+C"
+echo ""
+echo "4. Copy and paste this command into the console:"
+echo ""
+echo "─────────────────────────────────────────────────────────────"
+cat scripts/extract_tiktoks.js
+echo "─────────────────────────────────────────────────────────────"
+echo ""
+echo "5. The script will:"
+echo "   - Find all your TikTok videos on the page"
+echo "   - Generate YAML format"
+echo "   - Copy it to your clipboard (if possible)"
+echo ""
+echo "6. Paste the output into _data/tiktoks.yml"
+echo ""
+echo "7. Save the file and your Jekyll site will automatically reload!"
+echo ""
+echo "💡 TIP: You can also open scripts/extract_tiktoks.js in a text editor,"
+echo "    copy the entire file, and paste it into the browser console."
+echo ""
+

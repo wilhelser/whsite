@@ -1,0 +1,32 @@
+────────────────────────────────────────────────────────────
+VM696:58 # TikTok videos for @wilhelser
+# Generated on 2026-01-15
+# 
+# To update: 
+# 1. Visit https://www.tiktok.com/@wilhelser
+# 2. Run the extract_tiktoks.js script in the browser console
+# 3. Copy the output and paste it here
+
+- url: "https://www.tiktok.com/@wilhelser/video/7564355949939428638"
+  title: "Video 1"
+  description: ""
+
+- url: "https://www.tiktok.com/@wilhelser/video/7595050078239214879"
+  title: "Video 2"
+  description: ""
+
+- url: "https://www.tiktok.com/@wilhelser/video/7594687843235040543"
+  title: "Video 3"
+  description: ""
+
+- url: "https://www.tiktok.com/@wilhelser/video/7593149084349844766"
+  title: "Video 4"
+  description: ""
+
+- url: "https://www.tiktok.com/@wilhelser/video/7592731667551292703"
+  title: "Video 5"
+  description: ""
+
+- url: "https://www.tiktok.com/@wilhelser/video/7592405921754631454"
+  title: "Video 6"
+  description: ""

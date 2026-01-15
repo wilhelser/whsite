@@ -1,0 +1,18 @@
+# Links for your Linktree-style section
+# Add your links here and the site will automatically fetch thumbnails
+
+- url: "https://linktr.ee/wilhelser"
+  title: "Help Families in Gaza"
+  description: "Real families, real needs."
+
+- url: "https://getcalisober.com"
+  title: "Alcohol blows. THC infused dranks!"
+  description: "Use code WIL at checkout for 20% off everything at Cali Sober!"
+  image: "https://getcalisober.com/cdn/shop/files/Ranch_Water_01_trans.png?v=1750889707"
+
+
+# Add more links below:
+# - url: "https://example.com"
+#   title: "Link Title"
+#   description: "Short description"
+

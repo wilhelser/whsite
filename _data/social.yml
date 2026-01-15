@@ -1,0 +1,19 @@
+# Social media links
+# Add your social media profiles here
+
+- name: YouTube
+  url: "https://youtube.com/@wilhelserTV"
+  icon: youtube
+
+- name: Instagram
+  url: "https://instagram.com/wilhelser"
+  icon: instagram
+
+- name: TikTok
+  url: "https://tiktok.com/@wilhelser"
+  icon: tiktok
+
+- name: X (Twitter)
+  url: "https://x.com/wilhelser"
+  icon: x-twitter
+

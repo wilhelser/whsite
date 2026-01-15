@@ -1,0 +1,28 @@
+# Site settings
+title: Wil Helser
+description: News, political commentary, current events, life talk
+url: "http://localhost:4000"
+baseurl: ""
+
+# Social media
+youtube_channel_id: UC7oLAr-eZ9JKsqW77gVGERA
+youtube_api_key: AIzaSyAPLj__gYZU6xFdhBOxuEywVvS1JTP2qbw
+tiktok_username: wilhelser
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+# Collections
+collections:
+  sections:
+    output: false
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md
+
