@@ -1,7 +1,7 @@
 # Site settings
 title: Wil Helser
 description: News, political commentary, current events, life talk
-url: "http://localhost:4000"
+url: "https://wilhelser.com"
 baseurl: ""
 
 # Social media
