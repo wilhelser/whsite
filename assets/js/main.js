@@ -29,11 +29,22 @@ document.addEventListener('DOMContentLoaded', function() {
 async function loadLatestYouTubeVideo() {
     const videoContainer = document.getElementById('youtube-video');
 
-    // Get API credentials from data attributes
+    // Get data from attributes
+    const videoUrl = videoContainer.dataset.videoUrl;
     const channelId = videoContainer.dataset.channelId;
     const apiKey = videoContainer.dataset.apiKey;
 
-    // Use YouTube Data API to fetch latest video (excluding Shorts)
+    // First, check if there's a hardcoded video URL
+    if (videoUrl && videoUrl !== 'https://www.youtube.com/watch?v=YOUR_VIDEO_ID') {
+        // Extract video ID from URL
+        const videoId = extractYouTubeVideoId(videoUrl);
+        if (videoId) {
+            displayYouTubeVideo(videoId);
+            return;
+        }
+    }
+
+    // Fallback to API if no hardcoded URL
     if (apiKey && channelId && apiKey !== 'YOUR_YOUTUBE_API_KEY') {
         try {
             // Fetch more videos to filter out Shorts
@@ -41,6 +52,13 @@ async function loadLatestYouTubeVideo() {
                 `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=20&type=video`
             );
             const data = await response.json();
+
+            // Check for API errors
+            if (data.error) {
+                console.error('YouTube API Error:', data.error);
+                showYouTubePlaceholder(`YouTube API Error: ${data.error.message || 'Unknown error'}`);
+                return;
+            }
 
             if (data.items && data.items.length > 0) {
                 // Filter out Shorts (videos with #short or #shorts in title/description)
@@ -69,8 +87,25 @@ async function loadLatestYouTubeVideo() {
             showYouTubePlaceholder('Error loading video. Please check your API key.');
         }
     } else {
-        showYouTubePlaceholder('Please configure your YouTube API key in _config.yml');
+        showYouTubePlaceholder('Please configure your YouTube video URL in _config.yml');
     }
+}
+
+// Extract YouTube video ID from various URL formats
+function extractYouTubeVideoId(url) {
+    const patterns = [
+        /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/,
+        /youtube\.com\/embed\/([^&\n?#]+)/,
+        /youtube\.com\/v\/([^&\n?#]+)/
+    ];
+
+    for (const pattern of patterns) {
+        const match = url.match(pattern);
+        if (match && match[1]) {
+            return match[1];
+        }
+    }
+    return null;
 }
 
 function displayYouTubeVideo(videoId) {
