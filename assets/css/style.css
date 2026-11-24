@@ -6,42 +6,69 @@
 }
 
 :root {
-    --primary-bg: #0a0a0a;
-    --secondary-bg: #1a1a1a;
-    --text-primary: #ffffff;
-    --text-secondary: #a0a0a0;
-    --accent-color: rgb(14, 193, 47);
-    --accent-hover: rgb(11, 154, 37);
-    --border-color: #2a2a2a;
+    /* Brand kit: charcoal, off-white, gray, one green accent */
+    --primary-bg: #0E0F0E;
+    --secondary-bg: #161816;
+    --text-primary: #F4F4F0;
+    --text-secondary: #9AA09A;
+    --accent-color: #34D17A;
+    --accent-hover: #2BB868;
+    --accent-glow: rgba(52, 209, 122, 0.25);
+    --on-accent: #0E0F0E;
+    --border-color: #262926;
     --transition: all 0.3s ease;
 
     /* Font Families */
-    --font-heading: "Oswald", system-ui, -apple-system, BlinkMacSystemFont,
+    --font-heading: "Anton", Impact, "Arial Narrow", system-ui, -apple-system, BlinkMacSystemFont,
                     "Segoe UI", sans-serif;
-    --font-body: "Ubuntu", system-ui, -apple-system, BlinkMacSystemFont,
+    --font-body: "Fira Sans", system-ui, -apple-system, BlinkMacSystemFont,
                  "Segoe UI", sans-serif;
-    --font-ui: "Ubuntu", system-ui, -apple-system, BlinkMacSystemFont,
+    --font-ui: "Fira Sans", system-ui, -apple-system, BlinkMacSystemFont,
                "Segoe UI", sans-serif;
 }
 
 body {
     font-family: var(--font-body);
-    background-color: #000000;
-    background-image: url('/assets/images/bg.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-color: var(--primary-bg);
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
 }
 
-/* Apply heading font to all headings */
+/* Background: charcoal with a faint center glow and light grain, as on the
+   brand banners, with the WIL. circle set large and faint behind everything */
+body {
+    background:
+        radial-gradient(ellipse 70% 55% at 50% 40%, rgba(244, 244, 240, 0.07) 0%, transparent 70%)
+        fixed,
+        var(--primary-bg);
+}
+
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+body::before {
+    background: url('/assets/images/brand/wil-circle-bug.svg') center 45% / min(95vh, 110vw) no-repeat;
+    opacity: 0.05;
+}
+
+body::after {
+    opacity: 0.07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Apply heading font to all headings (Anton is a single bold weight) */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
-    font-weight: 600;
-    letter-spacing: 0.02em;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
 }
 
 /* Apply UI font to buttons, navigation, and UI elements */
@@ -86,15 +113,20 @@ button, .nav-links, .cta-link, .link-card, input, select, textarea {
 }
 
 .logo a {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--text-primary);
+    display: flex;
+    align-items: center;
     text-decoration: none;
     transition: var(--transition);
 }
 
+.logo img {
+    width: 44px;
+    height: 44px;
+    display: block;
+}
+
 .logo a:hover {
-    color: var(--accent-color);
+    transform: scale(1.06);
 }
 
 .nav-links {
@@ -138,7 +170,7 @@ button, .nav-links, .cta-link, .link-card, input, select, textarea {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(180deg, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+    background: linear-gradient(180deg, rgba(52, 209, 122, 0.06) 0%, transparent 50%);
     opacity: 0;
     pointer-events: none;
     z-index: -1;
@@ -167,13 +199,13 @@ button, .nav-links, .cta-link, .link-card, input, select, textarea {
     border-radius: 50%;
     object-fit: cover;
     border: 4px solid var(--accent-color);
-    box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 40px var(--accent-glow);
     transition: var(--transition);
 }
 
 .profile-photo img:hover {
     transform: scale(1.05);
-    box-shadow: 0 12px 48px rgba(59, 130, 246, 0.5);
+    box-shadow: 0 0 56px rgba(52, 209, 122, 0.4);
 }
 
 @keyframes fadeInDown {
@@ -187,14 +219,16 @@ button, .nav-links, .cta-link, .link-card, input, select, textarea {
     }
 }
 
+/* Wordmark: "WIL HELSER." in Anton, off-white, green period */
 .hero-content h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: clamp(3.5rem, 9vw, 6.5rem);
+    line-height: 1;
+    margin-bottom: 1.75rem;
+    color: var(--text-primary);
+}
+
+.hero-content h1 .dot {
+    color: var(--accent-color);
 }
 
 /* Social Media Links */
@@ -224,9 +258,9 @@ button, .nav-links, .cta-link, .link-card, input, select, textarea {
 .social-links a:hover {
     background: var(--accent-color);
     border-color: var(--accent-color);
-    color: white;
+    color: var(--on-accent);
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 8px 20px var(--accent-glow);
 }
 
 .social-links svg {
@@ -263,7 +297,7 @@ button, .nav-links, .cta-link, .link-card, input, select, textarea {
 }
 
 .section-header h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 1rem;
 }
 
@@ -271,7 +305,7 @@ button, .nav-links, .cta-link, .link-card, input, select, textarea {
     display: inline-block;
     padding: 0.75rem 2rem;
     background: var(--accent-color);
-    color: var(--text-primary);
+    color: var(--on-accent);
     text-decoration: none;
     border-radius: 0.5rem;
     font-weight: 600;
@@ -281,7 +315,7 @@ button, .nav-links, .cta-link, .link-card, input, select, textarea {
 .cta-link:hover {
     background: var(--accent-hover);
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 10px 20px var(--accent-glow);
 }
 
 .video-container {
@@ -344,7 +378,7 @@ button, .nav-links, .cta-link, .link-card, input, select, textarea {
     align-items: center;
     gap: 1rem;
     padding: 1rem;
-    background: var(--secondary-bg);
+    background: rgba(22, 24, 22, 0.85);
     border: 1px solid var(--border-color);
     border-radius: 1rem;
     text-decoration: none;
@@ -356,24 +390,8 @@ button, .nav-links, .cta-link, .link-card, input, select, textarea {
 
 .link-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 8px 24px rgba(52, 209, 122, 0.12);
     border-color: var(--accent-color);
-}
-
-.link-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: var(--accent-color);
-    transform: scaleY(0);
-    transition: var(--transition);
-}
-
-.link-card:hover::before {
-    transform: scaleY(1);
 }
 
 .link-thumbnail {
@@ -424,6 +442,9 @@ button, .nav-links, .cta-link, .link-card, input, select, textarea {
 }
 
 .link-title {
+    font-family: var(--font-body);
+    text-transform: none;
+    letter-spacing: 0;
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 0.25rem;
@@ -516,7 +537,7 @@ button, .nav-links, .cta-link, .link-card, input, select, textarea {
     width: 50px;
     height: 50px;
     background: var(--accent-color);
-    color: var(--text-primary);
+    color: var(--on-accent);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -547,9 +568,6 @@ button, .nav-links, .cta-link, .link-card, input, select, textarea {
         border-width: 3px;
     }
 
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
 
     .social-links {
         gap: 1rem;
