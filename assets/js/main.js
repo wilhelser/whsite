@@ -26,68 +26,42 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // YouTube API Integration
+// Loads the most recent upload that is not a Short. Every channel has an
+// auto-generated "long-form videos" playlist (UULF + channel ID without "UC")
+// that excludes Shorts, so the newest item there is the latest regular video.
 async function loadLatestYouTubeVideo() {
     const videoContainer = document.getElementById('youtube-video');
 
-    // Get data from attributes
     const videoUrl = videoContainer.dataset.videoUrl;
     const channelId = videoContainer.dataset.channelId;
     const apiKey = videoContainer.dataset.apiKey;
 
-    // First, check if there's a hardcoded video URL
-    if (videoUrl && videoUrl !== 'https://www.youtube.com/watch?v=YOUR_VIDEO_ID') {
-        // Extract video ID from URL
-        const videoId = extractYouTubeVideoId(videoUrl);
-        if (videoId) {
-            displayYouTubeVideo(videoId);
-            return;
-        }
-    }
+    const fallbackId = videoUrl ? extractYouTubeVideoId(videoUrl) : null;
 
-    // Fallback to API if no hardcoded URL
-    if (apiKey && channelId && apiKey !== 'YOUR_YOUTUBE_API_KEY') {
+    if (apiKey && channelId && channelId.startsWith('UC')) {
         try {
-            // Fetch more videos to filter out Shorts
+            const playlistId = 'UULF' + channelId.slice(2);
             const response = await fetch(
-                `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=20&type=video`
+                `https://www.googleapis.com/youtube/v3/playlistItems?key=${apiKey}&playlistId=${playlistId}&part=snippet&maxResults=1`
             );
             const data = await response.json();
 
-            // Check for API errors
             if (data.error) {
                 console.error('YouTube API Error:', data.error);
-                showYouTubePlaceholder(`YouTube API Error: ${data.error.message || 'Unknown error'}`);
+            } else if (data.items && data.items.length > 0) {
+                displayYouTubeVideo(data.items[0].snippet.resourceId.videoId);
                 return;
-            }
-
-            if (data.items && data.items.length > 0) {
-                // Filter out Shorts (videos with #short or #shorts in title/description)
-                const regularVideos = data.items.filter(item => {
-                    const title = item.snippet.title.toLowerCase();
-                    const description = item.snippet.description.toLowerCase();
-
-                    // Check if it's NOT a Short
-                    return !title.includes('#short') &&
-                           !description.includes('#short') &&
-                           !title.includes('#shorts') &&
-                           !description.includes('#shorts');
-                });
-
-                if (regularVideos.length > 0) {
-                    const videoId = regularVideos[0].id.videoId;
-                    displayYouTubeVideo(videoId);
-                } else {
-                    showYouTubePlaceholder('No regular videos found (only Shorts available).');
-                }
-            } else {
-                showYouTubePlaceholder('No videos found on this channel.');
             }
         } catch (error) {
             console.error('Error loading YouTube video:', error);
-            showYouTubePlaceholder('Error loading video. Please check your API key.');
         }
+    }
+
+    // If the API can't be reached, fall back to the video set in _config.yml
+    if (fallbackId) {
+        displayYouTubeVideo(fallbackId);
     } else {
-        showYouTubePlaceholder('Please configure your YouTube video URL in _config.yml');
+        showYouTubePlaceholder('Unable to load the latest video.');
     }
 }
 

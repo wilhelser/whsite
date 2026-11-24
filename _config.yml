@@ -7,7 +7,7 @@ baseurl: ""
 # Social media
 youtube_channel_id: UC7oLAr-eZ9JKsqW77gVGERA
 youtube_api_key: AIzaSyAPLj__gYZU6xFdhBOxuEywVvS1JTP2qbw
-youtube_video_url: "https://youtu.be/zlv7tVpByMo"  # Your latest video URL
+youtube_video_url: "https://youtu.be/zlv7tVpByMo"  # Fallback only; the latest non-Short video loads automatically
 tiktok_username: wilhelser
 
 # Google Analytics
